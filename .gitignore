@@ -1,0 +1,6 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea/
+.~lock.Fields.ods#
+venv/
+__pycache__/
+~lock.insurance.xlsx#
