@@ -1,0 +1,66 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}
+
+        {% if title %}
+            {{ title }}
+        {% else %}
+            Fraud Detector
+        {% endif %}
+{% endblock %}
+
+{% block navbar %}
+    <nav class="navbar navbar-default">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{{ url_for('index') }}">Eagle Forms</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+            </ul>
+        </div>
+    </nav>
+
+{% endblock %}
+
+{% block content %}
+    <div class="container">     
+        <hr>
+        {% with messages = get_flashed_messages(with_categories = true) %}
+        {% if messages %}        
+            {% for category, message in messages %}
+                {% if category == 'error' %}
+                    <div class="alert alert-warning">
+                        {{ message }}
+                    </div>
+
+                {% elif category == 'success' %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                
+                {% elif category == 'alert' %}
+
+                    <script type="text/javascript">
+                        var message = "{{ message }}";
+                        alert(message);
+                    </script>
+
+                {% else %}
+                    <div class="alert alert-info">
+                        {{ message }}
+                    </div>
+                
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {% block app_content %}{% endblock %}
+    </div> 
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    {{ moment.include_moment() }}
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block app_content %}
+	<table id="table">
+
+    </table>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    var table = document.getElementById('table');
+    var columns = {{columns | safe}};
+    console.log("Columns: ", columns);
+
+    var tr = document.createElement('tr');
+    for (let i = 0; i < columns.length; ++i) {
+        var column_name = columns[i];
+        var th = document.createElement('th');
+        th.style.width = '100px';
+        th.style.paddingLeft = '10px';
+        th.style.paddingRight = '10px';
+        th.innerText = column_name;
+        tr.appendChild(th);
+    }
+    table.append(tr);
+
+    var values = {{values | safe}};
+    console.log("Values: ", values);
+
+    for (let i = 0; i < values.length; ++i){
+        var tr = document.createElement('tr');
+        var row = values[i];
+        for (let j = 0; j < row.length; ++j){
+            var td = document.createElement('td');
+            td.style.width = '100px';
+            td.style.paddingLeft = '10px';
+            td.style.paddingRight = '10px';
+            td.innerText = row[j];
+            tr.appendChild(td);
+        }
+        table.append(tr);
+    }
+
+</script>
+{% endblock %}

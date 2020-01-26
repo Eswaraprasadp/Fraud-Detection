@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block app_content %}
+	<table id="table">
+
+    </table>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    var files = {{file_names | safe}};
+    console.log("Images: ", files);
+    for (let i = 0; i < files.length; ++i) {
+        var img = document.createElement('img');
+        img.src = files[i];
+        document.appendChild(img);
+    }    
+    
+
+</script>
+{% endblock %}

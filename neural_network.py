@@ -191,11 +191,13 @@ def shap_pred():
     explainer = shap.TreeExplainer(model)
     shap_values = explainer.shap_values(train_data)
     columns = ['Sum_Insured', 'Policies_Revenue', 'Broker_ID', 'Claim_Amount']
-    for i in range(4):
-        for j in range(4):
-            shap.dependence_plot(i, shap_values, train_data, feature_names=columns, interaction_index=columns[j])
+    # for i in range(4):
+    #     for j in range(4):
+    #         shap.dependence_plot(i, shap_values, train_data, feature_names=columns, interaction_index=columns[j])
     
     shap.summary_plot(shap_values, train_data,  feature_names = columns)
+
+    shap.summary_plot(shap_values, train_data, feature_names = columns, plot_type='bar')
 
     # knn = sklearn.neighbors.KNeighborsRegressor()
     # knn.fit(train_data, train_target)
@@ -221,10 +223,10 @@ train_data, test_data, train_target, test_target = train_test_split(iris.data, i
 
 warnings.filterwarnings("ignore")
 
-decision_tree(train_data=train_data, train_target=train_target) 
-random_forest(train_data=train_data, train_target=train_target)
-ann(train_data=train_data, train_target=train_target)
-lime_pred(train_data=train_data, test_data=test_data,df=df[:1000])
+# decision_tree(train_data=train_data, train_target=train_target) 
+# random_forest(train_data=train_data, train_target=train_target)
+# ann(train_data=train_data, train_target=train_target)
+# lime_pred(train_data=train_data, test_data=test_data,df=df[:1000])
 shap_pred()
 
 # # Making the Confusion Matrix
