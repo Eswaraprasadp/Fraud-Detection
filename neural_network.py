@@ -51,7 +51,7 @@ def load_data():
 
     return iris, df
 
-def decision_tree(train_data, train_target):
+def decision_tree(train_data=train_data, train_target=train_target, test_data=test_data, test_target=test_target):
     clf = tree.DecisionTreeClassifier()
     clf.fit(train_data, train_target)
 
@@ -61,7 +61,8 @@ def decision_tree(train_data, train_target):
     pred = clf.predict(test_data)
 
     score = metrics.accuracy_score(test_target, pred)
-    print("Accuracy: " + str(score*100.0))
+    accuracy = score*100.0
+    print("Accuracy: " + str(accuracy))
 
 
     #viz code
@@ -70,9 +71,10 @@ def decision_tree(train_data, train_target):
 
     graph = pydotplus.graph_from_dot_data(dot_data)
     graph.write_pdf("insurance.pdf")
+    return accuracy
 
 ## Randomforest
-def random_forest(train_data, train_target):
+def random_forest(train_data=train_data, train_target=train_target, test_data=test_data, test_target=test_target):
     from sklearn.ensemble import RandomForestClassifier
     from sklearn.metrics import confusion_matrix, accuracy_score, f1_score, precision_score, recall_score
     classifier = RandomForestClassifier(random_state = 0, n_estimators = 100,
@@ -98,7 +100,7 @@ def random_forest(train_data, train_target):
 '''
 Artifial Neural Network Model
 '''
-def ann(train_data, train_target):
+def ann(train_data=train_data, train_target=train_target, test_data=test_data, test_target=test_target):
     # Importing the Keras libraries and packages
     import keras
     from keras.models import Sequential
@@ -139,12 +141,12 @@ def prob(data):
     # return np.array(list(zip(1-model.predict(data),model.predict(data))))
     return np.array(list(zip(1-model.predict(data),model.predict(data))))
 
-def sp_lime(train_data, test_data, df):
+def sp_lime(train_data=train_data, train_target=train_target, test_data=test_data, test_target=test_target):
     sp_obj = submodular_pick.SubmodularPick(explainer, train_data.values, \
     prob, num_features=5,num_exps_desired=10)
     [exp.as_pyplot_figure(label=1) for exp in sp_obj.sp_explanations]
 
-def lime_pred(train_data, test_data, df):
+def lime_pred(train_data=train_data, train_target=train_target, test_data=test_data, test_target=test_target, df=df):
     data = np.dstack( (df['Sum_Insured'].astype(np.float), df['Policies_Revenue'].astype(np.float),
                             df['Broker_ID'].astype(np.int), df['Claim_Amount'].astype(np.float)) )[0]
     explainer = lime.lime_tabular.LimeTabularExplainer(data,\
@@ -184,7 +186,7 @@ def lime_pred(train_data, test_data, df):
     explanations = [exp.as_pyplot_figure(label=1) for exp in sp_obj.sp_explanations]
     plt.show()
 
-def shap_pred():
+def lime_pred(train_data=train_data, train_target=train_target, test_data=test_data, test_target=test_target):
     model = xgboost.XGBClassifier().fit(train_data, train_target)
 
     # compute SHAP values
@@ -223,10 +225,10 @@ train_data, test_data, train_target, test_target = train_test_split(iris.data, i
 
 warnings.filterwarnings("ignore")
 
-# decision_tree(train_data=train_data, train_target=train_target) 
-# random_forest(train_data=train_data, train_target=train_target)
-# ann(train_data=train_data, train_target=train_target)
-# lime_pred(train_data=train_data, test_data=test_data,df=df[:1000])
+decision_tree(train_data=train_data, train_target=train_target) 
+random_forest(train_data=train_data, train_target=train_target)
+ann(train_data=train_data, train_target=train_target)
+lime_pred(train_data=train_data, test_data=test_data,df=df[:1000])
 shap_pred()
 
 # # Making the Confusion Matrix

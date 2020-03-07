@@ -1,21 +1,56 @@
 {% extends 'base.html' %}
 
 {% block app_content %}
-	<table id="table">
+	<div id="body" style="text-align: center;">
 
-    </table>
+    </div>
 {% endblock %}
 
 {% block scripts %}
 <script>
-    var files = {{file_names | safe}};
+    var body = document.getElementById("body");
+    var files = {{files | safe}};
     console.log("Images: ", files);
+    var features = {{ feature_names | safe }};
+    var row;
     for (let i = 0; i < files.length; ++i) {
+        if (i % 3 == 0) {
+            row = document.createElement('div');
+            row.style.marginTop = '30px';
+            row.style.marginBottom = '20px';
+            var text = document.createElement('h3');
+            text.innerText = features[i/3];
+            row.appendChild(text);
+            body.appendChild(row);
+        }
         var img = document.createElement('img');
         img.src = files[i];
-        document.appendChild(img);
+        img.style.width = '700px';
+        img.style.height = '500px';
+        img.style.margin = '15px';
+        row.appendChild(img);
     }    
+    var summary_images = {{ summary_images | safe }};
+
+    row = document.createElement('div');
+    row.style.marginTop = '30px';
+    row.style.marginBottom = '20px';
+    var h = document.createElement('h3');
+    h.innerText = "Summary";
+    h.style.marginTop = '30px';
+    h.style.marginBottom = '20px';
     
+    row.appendChild(h);
+    body.appendChild(row);
+
+    for (let i = 0; i < summary_images.length; ++i) {
+        var img = document.createElement('img');
+        img.src = summary_images[i];
+        img.style.width = '700px';
+        img.style.height = '500px';
+        img.style.margin = '15px';
+        row.appendChild(img);
+    }
 
 </script>
 {% endblock %}
