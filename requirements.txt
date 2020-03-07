@@ -32,7 +32,7 @@ decorator==4.4.1
 defer==1.0.6
 defusedxml==0.6.0
 distro-info===0.18ubuntu0.18.04.1
-Django==3.0.1
+Django==3.0.3
 django-allauth==0.40.0
 django-ipware==2.1.0
 django-rest-auth==0.9.5
