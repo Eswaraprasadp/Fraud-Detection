@@ -67,7 +67,7 @@ googleapis-common-protos==1.6.0
 grpcio==1.26.0
 h5py==2.10.0
 html5lib==1.0.1
-httpie==0.9.8
+httpie==1.0.3
 httplib2==0.14.0
 idna==2.8
 imageio==2.6.1
