@@ -36,7 +36,7 @@ Django==3.1.6
 django-allauth==0.40.0
 django-ipware==2.1.0
 django-rest-auth==0.9.5
-djangorestframework==3.11.0
+djangorestframework==3.11.2
 docutils==0.15.2
 dominate==2.4.0
 enum34==1.1.6
